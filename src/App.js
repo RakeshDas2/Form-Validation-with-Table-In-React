@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+
 import './App.css';
+import UserForm from './components/UserForm';
+import UserTable from './components/UserTable';
+import { useState } from 'react';
 
 function App() {
+const [actualUserDetails,setActualUserDetails]=useState([])
+  const [userDetails, setUserDetails] = useState({ firstName: '', lastName: '', age: '', phoneNo: '', email: '', password: '', gender: '', terms: false })
+
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='container-fluid mt-5'>
+        <div className='row'>
+<div className='col-md-5'>
+<UserForm userDetails={userDetails} setUserDetails={setUserDetails} actualUserDetails={actualUserDetails} setActualUserDetails={setActualUserDetails} />
+</div>
+<div className='col-md-7'>
+<UserTable actualUserDetails={actualUserDetails}/>
+</div>
+        </div>
+      </div>
     </div>
   );
 }
