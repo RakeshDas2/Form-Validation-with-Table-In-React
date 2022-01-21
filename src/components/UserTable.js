@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 
 function UserTable(props) {
-   
+   const clearLocal=()=>{
+      props.setActualUserDetails([])
+    localStorage.clear()
+   }
     return (
         <div >
             <div className='card'>
@@ -16,6 +19,7 @@ function UserTable(props) {
                                 <th>Email</th>
                                 <th>Password</th>
                                 <th>Gender</th>
+                               <button className='btn btn-danger' onClick={()=>{clearLocal()}}>clear</button>
                             </tr>
                         </thead>
                         <tbody>

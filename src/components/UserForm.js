@@ -1,41 +1,41 @@
-import React from 'react'
-import {useState} from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
 function UserFom(props) {
     // console.log(props.userDetails);
     // console.log(props.setUserDetails);
 
-     //for First Name
-     const [isValidFirstName, setIsValidFirstName] = useState(true)
-     const [firstNameError, setFirstNameError] = useState('')
- 
-     //for LastName
-     const [isValidLastName, setIsValidLastName] = useState(true)
-     const [lastNameError, setLastNameError] = useState('')
-     //for age
-     const [isValidAge, setIsValidAge] = useState(true);
-     const [ageError, setAgeError] = useState('');
-     //for phone Number
-     const [isPhoneNoValid, setIsPhoneNoValid] = useState(true)
-     const [phoneNoError, setPhoneNoError] = useState('')
-     //for email 
-     const [isValidEmail, setIsValidEmail] = useState(true)
-     const [emailError, setEmailError] = useState('')
-     // for password 
-     const [isValidPassword, setIsValidPassword] = useState(true)
-     const [passwordError, setPasswordError] = useState('')
-     //for gender
-     const [isValidGender, setIsValidGender] = useState(true)
-     const [genderError, setGenderError] = useState('')
-     //for terms and condition
-     const [isValidTerms, setIsValidTerms] = useState(true)
-     const [termsError, setTermsError] = useState('')
+    //for First Name
+    const [isValidFirstName, setIsValidFirstName] = useState(true)
+    const [firstNameError, setFirstNameError] = useState('')
 
-      //update userDetails value with input value
+    //for LastName
+    const [isValidLastName, setIsValidLastName] = useState(true)
+    const [lastNameError, setLastNameError] = useState('')
+    //for age
+    const [isValidAge, setIsValidAge] = useState(true);
+    const [ageError, setAgeError] = useState('');
+    //for phone Number
+    const [isPhoneNoValid, setIsPhoneNoValid] = useState(true)
+    const [phoneNoError, setPhoneNoError] = useState('')
+    //for email 
+    const [isValidEmail, setIsValidEmail] = useState(true)
+    const [emailError, setEmailError] = useState('')
+    // for password 
+    const [isValidPassword, setIsValidPassword] = useState(true)
+    const [passwordError, setPasswordError] = useState('')
+    //for gender
+    const [isValidGender, setIsValidGender] = useState(true)
+    const [genderError, setGenderError] = useState('')
+    //for terms and condition
+    const [isValidTerms, setIsValidTerms] = useState(true)
+    const [termsError, setTermsError] = useState('')
+
+    //update userDetails value with input value
 
     const updateUserDetails = (event) => {
         const userDetailsCopy = { ...props.userDetails }
         userDetailsCopy[event.target.name] = event.target.value
-       props.setUserDetails(userDetailsCopy)
+        props.setUserDetails(userDetailsCopy)
         //console.log(userDetails);
     }
 
@@ -172,17 +172,32 @@ function UserFom(props) {
         }
     }
 
-    const validateGender=(gender)=>{
-        if(gender==='Male'||gender==='Female'){
+    const validateGender = (gender) => {
+        if (gender === 'Male' || gender === 'Female') {
             setIsValidGender(true)
             setGenderError('')
             return true
-        }else{
+        } else {
             setIsValidGender(false)
             setGenderError('please select gender')
             return false
         }
     }
+
+   
+
+    // const toGetFromLocalStorage=()=>{
+    //     const gettingData=localStorage.getItem('id')
+    //     console.log(gettingData);
+    //           if(gettingData){
+    //               props.setLocalStorage( JSON.parse(gettingData))  
+    //           }else{
+    //               props.setLocalStorage([])
+    //           }
+    // }
+   
+
+
 
     const validate = (event) => {
         event.preventDefault();
@@ -192,23 +207,24 @@ function UserFom(props) {
         const validPhoneNo = validatePhoneNumber(props.userDetails.phoneNo)
         const validEmail = validateEmail(props.userDetails.email)
         const validPassword = validatePassword(props.userDetails.password)
-        const validTerms=validateTerms(props.userDetails.terms)
-        const validGender=validateGender(props.userDetails.gender)
+        const validTerms = validateTerms(props.userDetails.terms)
+        const validGender = validateGender(props.userDetails.gender)
 
 
         if (validFirstName && validLastName && validAge && validPhoneNo && validPassword && validEmail && validTerms && validGender) {
             // props.history.push('/home')
-            const actualUserDetailsCopy=[...props.actualUserDetails]
+            const actualUserDetailsCopy = [...props.actualUserDetails]
             actualUserDetailsCopy.push(props.userDetails)
-           props.setActualUserDetails(actualUserDetailsCopy)
+            props.setActualUserDetails(actualUserDetailsCopy)
+          //  props.setShowTable(true)
         } else {
             console.error('not valid');
-           
+
         }
     }
     return (
         <div>
-           <div className="container">
+            <div className="container">
                 <div className="">
                     <div className="card border-success border-2">
                         <div className="card-header bg-success">
@@ -222,7 +238,7 @@ function UserFom(props) {
                                     </div>
                                     <div className="col-md-8">
                                         <input type='text' name="firstName" value={props.userDetails.firstName} className="form-control" onChange={(event) => { updateUserDetails(event) }} />
-                                        {isValidFirstName ? null : <span style={{color:'red',fontSize:'13px'}}>{firstNameError}</span>}
+                                        {isValidFirstName ? null : <span style={{ color: 'red', fontSize: '13px' }}>{firstNameError}</span>}
                                     </div>
                                 </div>
                                 <div className="row mt-3">
@@ -231,7 +247,7 @@ function UserFom(props) {
                                     </div>
                                     <div className="col-md-8">
                                         <input type='text' name="lastName" value={props.userDetails.lastName} className="form-control" onChange={(event) => { updateUserDetails(event) }} />
-                                        {isValidLastName ? null : <span style={{color:'red',fontSize:'13px'}}>{lastNameError}</span>}
+                                        {isValidLastName ? null : <span style={{ color: 'red', fontSize: '13px' }}>{lastNameError}</span>}
                                     </div>
                                 </div>
                                 <div className="row mt-3">
@@ -240,7 +256,7 @@ function UserFom(props) {
                                     </div>
                                     <div className="col-md-8">
                                         <input type='number' name="age" value={props.userDetails.age} className="form-control" onChange={(event) => { updateUserDetails(event) }} />
-                                        {isValidAge ? null : <span style={{color:'red',fontSize:'13px'}}>{ageError}</span>}
+                                        {isValidAge ? null : <span style={{ color: 'red', fontSize: '13px' }}>{ageError}</span>}
                                     </div>
                                 </div>
                                 <div className="row mt-3">
@@ -249,7 +265,7 @@ function UserFom(props) {
                                     </div>
                                     <div className="col-md-8">
                                         <input type='number' name="phoneNo" value={props.userDetails.phoneNo} className="form-control" onChange={(event) => { updateUserDetails(event) }} />
-                                        {isPhoneNoValid ? null : <span style={{color:'red',fontSize:'13px'}}>{phoneNoError}</span>}
+                                        {isPhoneNoValid ? null : <span style={{ color: 'red', fontSize: '13px' }}>{phoneNoError}</span>}
                                     </div>
                                 </div>
                                 <div className="row mt-3">
@@ -258,7 +274,7 @@ function UserFom(props) {
                                     </div>
                                     <div className="col-md-8">
                                         <input type='email' name="email" value={props.userDetails.email} className="form-control" onChange={(event) => { updateUserDetails(event) }} />
-                                        {isValidEmail ? null : <span style={{color:'red',fontSize:'13px'}}>{emailError}</span>}
+                                        {isValidEmail ? null : <span style={{ color: 'red', fontSize: '13px' }}>{emailError}</span>}
                                     </div>
                                 </div>
                                 <div className="row mt-3">
@@ -267,7 +283,7 @@ function UserFom(props) {
                                     </div>
                                     <div className="col-md-8">
                                         <input type='password' name="password" value={props.userDetails.password} className="form-control" onChange={(event) => { updateUserDetails(event) }} />
-                                        {isValidPassword ? null : <span style={{color:'red',fontSize:'13px'}}>{passwordError}</span>}
+                                        {isValidPassword ? null : <span style={{ color: 'red', fontSize: '13px' }}>{passwordError}</span>}
                                     </div>
                                 </div>
                                 <div className="row mt-3">
@@ -286,7 +302,7 @@ function UserFom(props) {
                                                     <input className="form-check-input" type="radio" name="gender" value='Female' id="female" onChange={(event) => { updateUserDetails(event) }} />Female
                                                 </div>
                                             </div>
-                                            {isValidGender?null:<span style={{color:'red',fontSize:'13px'}}>{genderError}</span>}
+                                            {isValidGender ? null : <span style={{ color: 'red', fontSize: '13px' }}>{genderError}</span>}
                                         </div>
                                     </div>
                                 </div>
@@ -294,8 +310,8 @@ function UserFom(props) {
 
                                     <div className="col-md-6">
                                         <input className="form-check-input" type="checkbox" name="term" onChange={(event) => { updateUserDetailsWithTerms(event) }} />
-                                        <span> Terms and condition</span><br/>
-                                        {isValidTerms?null:<span style={{color:'red',fontSize:'13px'}}>{termsError}</span>}
+                                        <span> Terms and condition</span><br />
+                                        {isValidTerms ? null : <span style={{ color: 'red', fontSize: '13px' }}>{termsError}</span>}
                                     </div>
 
                                 </div>
@@ -308,7 +324,7 @@ function UserFom(props) {
 
                 </div>
             </div>
-            
+
         </div>
     )
 }
